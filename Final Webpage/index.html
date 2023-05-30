@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="icon" href="images/The Traveller.png">
+  <title>The Traveller</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="jumbotron">
+      <h1 class="display-4"><strong>The Traveller</strong></h1>
+      <p class="lead">Answer a few questions to get a personalized travel recommendation.</p>
+    </div>
+
+    <form id="travelForm">
+      <div class="form-group">
+        <label for="characterType">What is your character type?</label>
+        <select class="form-control" id="characterType" required>
+          <option value="">Select character type</option>
+          <option value="adventurous">Adventurous</option>
+          <option value="city lover">City Lover</option>
+          <option value="culture lover">Culture Lover</option>
+          <option value="foodie">Foodie</option>
+          <option value="ecotourist">Ecotourist</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="budget">What is your budget?</label>
+        <select class="form-control" id="budget" required>
+          <option value="">Select budget</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="duration">Duration of stay (in days)</label>
+        <input type="number" class="form-control" id="duration" min="1" max="10" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <div id="recommendation" style="display: none;">
+      <hr>
+      <h2>Your Travel Recommendation:</h2>
+      <h3 id="recommendedCountry"></h3>
+      <ul id="activitiesList"></ul>
+      <h3>Itinerary</h3>
+      <ul id="itineraryList"></ul>
+      <ul id="foodsList"></ul>
+      <ul id="souvenirsList"></ul>
+      <p id="visaRequirement"></p>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    const countryData = [
+      {
+        name: "Costa Rica",
+        activities: [
+          "Zip-lining through the rainforest",
+          "Exploring Arenal Volcano National Park",
+          "Relaxing on Montezuma Beach",
+          "Hiking in Manuel Antonio National Park",
+          "White-water rafting on the Pacuare River",
+          "Visiting the Monteverde Cloud Forest Reserve",
+          "Taking a dip in La Fortuna Waterfall",
+          "Surfing in Santa Teresa",
+          "Observing wildlife in Tortuguero National Park",
+          "Enjoying hot springs in Tabacon"
+        ],
+        foods: [
+          "Gallo Pinto (traditional rice and beans dish)",
+          "Casado (typical Costa Rican meal)",
+          "Ceviche (marinated seafood dish)",
+          "Olla de Carne (beef soup)",
+          "Arroz con Leche (rice pudding)"
+        ],
+        souvenirs: [
+          "Handmade wooden crafts",
+          "Coffee beans or coffee-related products",
+          "Traditional woven textiles"
+        ],
+        visaRequired: {
+          Singapore: false
+        }
+      },
+      {
+        name: "Thailand",
+        activities: [
+          "Visiting the Grand Palace in Bangkok",
+          "Exploring the ancient ruins of Ayutthaya",
+          "Relaxing on the stunning beaches of Phuket",
+          "Taking a boat tour of the Phi Phi Islands",
+          "Participating in a Thai cooking class",
+          "Visiting the temples of Chiang Mai",
+          "Elephant trekking in the jungles of Chiang Rai",
+          "Snorkeling in the clear waters of Koh Samui",
+          "Exploring the night markets in Pattaya",
+          "Enjoying a traditional Thai massage"
+        ],
+        foods: [
+          "Pad Thai (stir-fried noodles)",
+          "Green Curry",
+          "Tom Yum Goong (spicy shrimp soup)",
+          "Som Tum (green papaya salad)",
+          "Mango Sticky Rice"
+        ],
+        souvenirs: [
+          "Silk products",
+          "Thai spices and herbs",
+          "Handmade jewelry"
+        ],
+        visaRequired: {
+          Singapore: false
+        }
+      },
+      {
+        name: "Italy",
+        activities: [
+          "Exploring the ancient ruins of Rome",
+          "Visiting the iconic Colosseum",
+          "Taking a gondola ride in Venice",
+          "Admiring the art at the Uffizi Gallery in Florence",
+          "Exploring the ruins of Pompeii",
+          "Tasting authentic pizza in Naples",
+          "Visiting the Vatican City and St. Peter's Basilica",
+          "Taking a bike tour through the Tuscan countryside",
+          "Exploring the beautiful Amalfi Coast",
+          "Enjoying gelato in the streets of Rome"
+        ],
+        foods: [
+          "Margherita Pizza",
+          "Pasta Carbonara",
+          "Risotto",
+          "Gelato",
+          "Tiramisu"
+        ],
+        souvenirs: [
+          "Italian leather products",
+          "Wine and olive oil",
+          "Hand-painted ceramics"
+        ],
+        visaRequired: {
+          Singapore: false
+        }
+      }
+    ];
+
+    function recommendCountry(characterType, budget, duration) {
+      if (characterType === "adventurous") {
+        if (budget === "high") {
+          return "Costa Rica";
+        } else if (budget === "medium" || budget === "low") {
+          return "Thailand";
+        }
+      } else if (characterType === "city lover" || characterType === "culture lover" || characterType === "foodie") {
+        if (budget === "high" || budget === "medium" || budget === "low") {
+          return "Italy";
+        }
+      } else if (characterType === "ecotourist") {
+        if (budget === "high") {
+          return "Costa Rica";
+        } else if (budget === "medium" || budget === "low") {
+          return "Thailand";
+        }
+      }
+
+      return "Unknown Country";
+    }
+
+    function getCountryActivities(country) {
+      const selectedCountry = countryData.find(item => item.name === country);
+      return selectedCountry ? selectedCountry.activities : [];
+    }
+
+    function checkVisaRequirement(country, nationality) {
+      const selectedCountry = countryData.find(item => item.name === country);
+      if (selectedCountry && selectedCountry.visaRequired) {
+        const visaRequired = selectedCountry.visaRequired[nationality];
+        return visaRequired ? "Visa required" : "No visa required";
+      }
+      return "Unknown";
+    }
+
+    function getCountryFoods(country) {
+      const selectedCountry = countryData.find(item => item.name === country);
+      return selectedCountry ? selectedCountry.foods : [];
+    }
+
+    function getCountrySouvenirs(country) {
+      const selectedCountry = countryData.find(item => item.name === country);
+      return selectedCountry ? selectedCountry.souvenirs : [];
+    }
+
+
+    function generateItinerary(activities, duration) {
+      const uniqueActivities = getUniqueActivities(activities);
+      const activityCount = uniqueActivities.length;
+      const days = Math.min(duration, 10);
+
+      const itinerary = [];
+      let currentIndex = 0;
+
+      for (let i = 1; i <= days; i++) {
+        const activity = uniqueActivities[currentIndex];
+        const dayActivity = "Day " + i + ": " + activity;
+        itinerary.push(dayActivity);
+
+        currentIndex = (currentIndex + 1) % activityCount;
+      }
+
+      return itinerary;
+    }
+
+    function getUniqueActivities(activities) {
+      const uniqueActivities = [...new Set(activities)];
+      const neededActivities = Math.max(10, uniqueActivities.length);
+
+      while (uniqueActivities.length < neededActivities) {
+        const randomActivity = activities[Math.floor(Math.random() * activities.length)];
+        if (!uniqueActivities.includes(randomActivity)) {
+          uniqueActivities.push(randomActivity);
+        }
+      }
+
+      return uniqueActivities;
+    }
+  </script>
+  <script src="index.js"></script>
+</body>
+
+</html>

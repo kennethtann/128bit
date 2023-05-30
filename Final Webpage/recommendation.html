@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="recommendation.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="icon" href="The Traveller.png">
+  <title>The Traveller</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="jumbotron">
+      <h1 class="display-4"><strong>The Traveller</strong></h1>
+    </div>
+
+    <h3 id="recommendedCountry"></h3>
+
+    <div class="section">
+      <h4>Visa Requirement for Singaporeans</h4>
+      <p id="visaRequirement"></p>
+    </div>
+
+    <div class="section">
+      <h4>Suggested Itinerary</h4>
+      <table id="itineraryTable"></table>
+    </div>
+
+    <div class="section">
+      <h4>Top 5 Must-Try Food</h4>
+      <ul id="foodsList"></ul>
+    </div>
+
+    <div class="section">
+      <h4>Must-Buy Souvenirs</h4>
+      <ul id="souvenirsList"></ul>
+    </div>
+
+    <div class="telegram-link">
+      <a href="https://t.me/the_traveller_bot" target="_blank">
+        <img src="images/telegram.png" alt="Telegram Bot" />
+      </a>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    function decodeQueryParams(url) {
+      const params = {};
+      const paramPairs = url.slice(url.indexOf("?") + 1).split("&");
+
+      for (let i = 0; i < paramPairs.length; i++) {
+        const pair = paramPairs[i].split("=");
+        const key = decodeURIComponent(pair[0]);
+        const value = decodeURIComponent(pair[1]);
+        params[key] = value;
+      }
+
+      return params;
+    }
+  </script>
+  <script src="recommendation.js"></script>
+</body>
+
+</html>
