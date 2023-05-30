@@ -1,6 +1,7 @@
 # The Traveller
+### _Your next-generation travel companion_
 
-The Traveller, featuring a website and a telegram bot, is here to accompany you for the whole time, before you even pack your luggage.
+The Traveller, featuring a website and a telegram bot, is here to accompany you for the whole time, even before you pack your luggage.
 
 * Website: Load by going to `Final Webpage/index.html`
 * Telegram Bot: `the_traveller_telegram_bot_main.py`
