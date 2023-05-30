@@ -1,3 +1,5 @@
+![logo](the_traveller_logo.png)
+
 # The Traveller
 ### _Your next-generation travel companion_
 
