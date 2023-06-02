@@ -1,8 +1,5 @@
 ![logo](the_traveller_logo.png)
 
-# Video Demo
-https://youtu.be/5RyQd8KK3GI
-
 # The Traveller
 ### _Your next-generation travel companion_
 
@@ -18,6 +15,9 @@ On Holiday: Use the telegram bot _@the_traveller_bot_, ready to help you anytime
 * As sensitive information may be provided by the user, a benefit of using Telegram is that chats and comunications are encrypted.
 
 Back to reality: Shag? But fret not, relive your trip by viewing your complete journal on your exciting trip!
+
+# Video Demo
+https://youtu.be/5RyQd8KK3GI
 
 # Credits
 Image used in webpage: 
